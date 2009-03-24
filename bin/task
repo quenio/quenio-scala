@@ -1,26 +1,16 @@
-#!/usr/bin/env scala
+#!/usr/bin/env sc
 !#
 
-import java.io._;
-import scala.io._;
-import scala.collection.mutable._;
+new CommandApp(new TaskManager) {
+	appName = "task"
+	appArgs = args
+	commands = Map(
+		"add" -> add _,
+		"rm" -> remove _
+	)
+} start
 
-if (args.length > 0) {
-  val commands = Map(
-    "add" -> add _,
-	"rm" -> remove _
-  )
-  val command = args(0)
-  if (commands.isDefinedAt(command)) {
-	commands(command).apply(new TaskManager())
-  } else {
-	println("Unknown command: " + command)
-  }
-} else {
-	println("Please specify a command. Ex.: task <command>")
-}
-
-def add(tasks: TaskManager) {
+def add(args: Array[String], tasks: TaskManager) {
 	if (args.length > 1) {
 		val description = args(1)
 		tasks.add(description)
@@ -30,7 +20,7 @@ def add(tasks: TaskManager) {
 	}
 }
 
-def remove(tasks: TaskManager) {
+def remove(args: Array[String], tasks: TaskManager) {
 	if (args.length > 1) {
 		try {
 			val index = args(1).toInt
@@ -47,46 +37,4 @@ def remove(tasks: TaskManager) {
 	}
 }
 
-class TaskManager {
-	
-	val file = new TextFile("tasks.txt")
 
-	def count = file.readLines.length
-	
-	def add(description: String) {
-		file.append(writer => writer.write(description +"\n"))
-	}
-	
-	def remove(index: Int): String = {
-		val lines = file.readLines
-		assert(
-			index >= 0 && index <= lines.length, 
-			"Index must be in bounds: " + (1,lines.length))
-		file.create(writer => {
-			lines.slice(0, index - 1).foreach(writer.write)
-			lines.drop(index).foreach(writer.write)
-		})
-		return lines(index - 1)
-	}
-	
-}
-
-class TextFile(fileName: String) {
-
-	def append(update: BufferedWriter => Unit) {
-		write(update, true)
-	}
-
-	def create(update: BufferedWriter => Unit) {
-		write(update, false)
-	}
-
-	def write(update: BufferedWriter => Unit, append: Boolean) {
-		val writer = new BufferedWriter(new FileWriter(fileName, append))
-		update(writer)
-		writer.close
-	}
-
-	def readLines =	Source.fromFile(fileName).getLines.toList 
-
-}
