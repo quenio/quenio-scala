@@ -1,0 +1,17 @@
+#!/usr/bin/env sc
+!#
+
+import quenio.locale._
+
+new Comment(null)
+
+
+println("Break: '" + Break.raw + "'")
+
+val comment = new Comment("# Some comment...")
+println(comment.raw)
+println(comment.text)
+
+val property = new Property("myprop=myval")
+println(property.name)
+println(property.value)

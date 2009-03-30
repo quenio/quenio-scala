@@ -1,0 +1,1 @@
+scala -classpath ~/scala/lib/scalatest-0.9.5.jar -sourcepath ~/scala/src -deprecation $@

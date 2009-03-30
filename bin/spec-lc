@@ -1,0 +1,10 @@
+#!/usr/bin/env sct
+!#
+
+import quenio.locale.model._
+
+SpecLine.execute()
+SpecBreak.execute()
+SpecComment.execute()
+SpecProperty.execute()
+SpecLocale.execute()
