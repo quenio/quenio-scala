@@ -8,3 +8,7 @@ SpecBreak.execute()
 SpecComment.execute()
 SpecProperty.execute()
 SpecLocale.execute()
+
+import quenio.locale.repository._
+
+SpecLocaleRepository.execute()

@@ -1,8 +1,9 @@
 package quenio.locale.model
 
 import org.scalatest._
+import org.scalatest.matchers._
 
-object SpecProperty extends Spec {
+object SpecProperty extends Spec with ShouldMatchers {
   
   describe("Property") {
     
@@ -26,6 +27,18 @@ object SpecProperty extends Spec {
       intercept[IllegalArgumentException] {
         new Property("myname")
       }
+    }
+
+    it("can match items in a list of Property instances") {
+      val List(Property(name, value)) = List(new Property("propname=propval"))
+      name should be ("propname")
+      value should be ("propval")
+    }
+    
+    it("can match items in a list of Line instances") {
+      val List(Property(name, value), Break) = List(new Property("propname=propval"), Break)
+      name should be ("propname")
+      value should be ("propval")
     }
 
   }

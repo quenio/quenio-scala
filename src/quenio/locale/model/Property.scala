@@ -10,7 +10,7 @@ class Property(rawText: String) extends Line(rawText) {
       _name = name
       _value = value
     }
-    
+    case _ =>
   }
   
   require(_value != null, "Property requires value.")
@@ -30,10 +30,13 @@ object Property {
   }
   
   def unapply(str: String): Option[(String, String)] = { 
-    val parts = str split "=" 
+    val parts = str.trim.split("=") 
     if (parts.length == 2) 
       Some(parts(0), parts(1)) 
     else 
-      Some(str, null) 
+      None 
   }
+  
+  def unapply(line: Line): Option[(String, String)] = unapply(line.raw)
+  
 }
