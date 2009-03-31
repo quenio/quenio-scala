@@ -13,7 +13,7 @@ object SpecLocaleRepository extends Spec with ShouldMatchers {
 
     it("contains Locale objects") {
       repository("en").code should equal ("en")
-      repository("de").code should equal ("de")
+      repository("fr_CA").code should equal ("fr_CA")
     }
  
     it("contains English locale's contents") {
@@ -26,14 +26,15 @@ object SpecLocaleRepository extends Spec with ShouldMatchers {
       value should be ("enpropval")
     }
 
-    it("contains German locale's contents") {
-      val german = repository("de")
-      german.code should equal ("de")
-      german.lines should have length (4)
-      val List(Comment(text), Break, Property(name, value), Break) = german.lines
-      text should be ("Simple German comment...")
+    it("contains French locale's contents") {
+      val french = repository("fr_CA")
+      french.code should equal ("fr_CA")
+      french.lines should have length (5)
+      val List(Comment(c1), Break, Property(name, value), Break, Comment(c2)) = french.lines
+      c1 should be ("Simple French comment...")
       name should be ("depropname")
-      value should be ("depropval")
+      value should be ("")
+      c2 should be ("---")
     }
 
   }

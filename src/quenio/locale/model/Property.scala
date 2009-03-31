@@ -33,7 +33,9 @@ object Property {
     val parts = str.trim.split("=") 
     if (parts.length == 2) 
       Some(parts(0), parts(1)) 
-    else 
+    else if (parts.length == 1 && str.trim.endsWith("="))
+      Some(parts(0), "")
+    else
       None 
   }
   

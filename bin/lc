@@ -1,17 +1,24 @@
-#!/usr/bin/env sc
+#!/usr/bin/env sc -deprecation
 !#
 
-import quenio.locale._
+import quenio.locale.repository._
 
-new Comment(null)
+try {
+	new CommandApp(new LocaleRepository(".")) {
+		appName = "lc"
+		appArgs = args
+		commands = Map(
+			"level" -> level _
+		)
+	} start
+} catch {
+	case me: MatchError => println("Unexpected file or directory: " + me.getMessage)
+	case e: Exception => println(e.getMessage)
+}
 
-
-println("Break: '" + Break.raw + "'")
-
-val comment = new Comment("# Some comment...")
-println(comment.raw)
-println(comment.text)
-
-val property = new Property("myprop=myval")
-println(property.name)
-println(property.value)
+def level(args: Array[String], repository: LocaleRepository) {
+  if (args.length == 2) {
+  } else {
+    println("Please specify the base language for leveling and no more.")
+  }
+}

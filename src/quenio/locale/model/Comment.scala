@@ -14,8 +14,9 @@ object Comment {
   }
   
   def unapply(raw: String): Option[String] = {
-    if (raw startsWith "#")
-      Some(new Comment(raw).text)
+    val line: String = if (raw.length >= 2 && raw(1) == '#') raw.drop(1) else raw
+    if (line startsWith "#")
+      Some(new Comment(line).text)
     else 
       None
   }

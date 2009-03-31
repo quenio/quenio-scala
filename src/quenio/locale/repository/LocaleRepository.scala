@@ -1,7 +1,7 @@
 package quenio.locale.repository
 
-import java.io.File
-import scala.io.Source
+import java.io._
+import scala.io._
 import quenio.locale.model._
 
 class LocaleRepository(dirPath: String) {
@@ -13,10 +13,27 @@ class LocaleRepository(dirPath: String) {
   require(files != null, "The specified path should point to directory: " + dirPath)
   
   for (file <- files) {
-    val NameFormat = """custom_([a-z][a-z])""".r
+    val NameFormat = """custom_([a-z][a-z]_?[A-Z]?[A-Z]?)""".r
     val NameFormat(localeCode) = file.getName
-    val lines = Source.fromFile(file).getLines.toList.map(convert(_))
+    val lines = readLines(file.getPath).map(convert(_))
     map += (localeCode -> new Locale(localeCode, lines))
+  }
+  
+  private def readLines(filePath: String): List[String] = {
+    val reader = new BufferedReader(new InputStreamReader(new FileInputStream(filePath), "UTF8"))
+    try {
+      readLines(reader, Nil)
+    } finally {
+      reader.close
+    }
+  }
+  
+  private def readLines(reader: BufferedReader, lines: List[String]): List[String] = {
+    val line = reader.readLine
+    if (line == null)
+      lines
+    else
+      line :: readLines(reader, lines)
   }
   
   private def convert(raw: String): Line = {
@@ -24,7 +41,7 @@ class LocaleRepository(dirPath: String) {
       case "" => Break
       case Comment(text) => new Comment(raw)
       case Property(name, value) => new Property(raw)
-      case _ => throw new Exception("Unable to convert line: " + raw)
+      case _ => new Comment("# " + raw)
     }
   }
 	
