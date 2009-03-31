@@ -1,1 +1,1 @@
-scalac -sourcepath ~/scala/src $@
+scalac -classpath ~/scala/lib/scalatest-0.9.5.jar -sourcepath ~/scala/src -d ~/scala/classes $@

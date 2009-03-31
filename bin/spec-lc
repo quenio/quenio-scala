@@ -12,3 +12,7 @@ SpecLocale.execute()
 import quenio.locale.repository._
 
 SpecLocaleRepository.execute()
+
+import quenio.locale.roles._
+
+SpecLeveler.execute()

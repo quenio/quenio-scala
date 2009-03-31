@@ -48,3 +48,4 @@ class LocaleRepository(dirPath: String) {
 	def apply(code: String): Locale = map(code)
 	
 }
+
