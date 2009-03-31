@@ -8,8 +8,11 @@ class LocaleRepository(dirPath: String) {
   
   private var map = Map.empty[String, Locale]
   private var dir = new File(dirPath)
+  private var files = dir.listFiles
   
-  for (file <- dir.listFiles) {
+  require(files != null, "The specified path should point to directory: " + dirPath)
+  
+  for (file <- files) {
     val NameFormat = """custom_([a-z][a-z])""".r
     val NameFormat(localeCode) = file.getName
     val lines = Source.fromFile(file).getLines.toList.map(convert(_))

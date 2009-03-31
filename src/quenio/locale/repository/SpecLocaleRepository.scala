@@ -8,14 +8,15 @@ object SpecLocaleRepository extends Spec with ShouldMatchers {
   
   describe("LocaleRepository") {
 
+    val dirPath = System.getProperty("user.home") + "/scala/var/test-repository"
+    val repository = new LocaleRepository(dirPath)
+
     it("contains Locale objects") {
-      val repository = new LocaleRepository(".")
       repository("en").code should equal ("en")
       repository("de").code should equal ("de")
     }
  
     it("contains English locale's contents") {
-      val repository = new LocaleRepository(".")
       val english = repository("en")
       english.code should equal ("en")
       english.lines should have length (3)
@@ -26,7 +27,6 @@ object SpecLocaleRepository extends Spec with ShouldMatchers {
     }
 
     it("contains German locale's contents") {
-      val repository = new LocaleRepository(".")
       val german = repository("de")
       german.code should equal ("de")
       german.lines should have length (4)
