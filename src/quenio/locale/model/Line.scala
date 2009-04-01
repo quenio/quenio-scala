@@ -4,8 +4,9 @@ class Line(rawText: String) {
   
   require(rawText != null, "The 'rawText' parameter is required.")
   
-  def raw = rawText
-  
+  val raw = rawText
+ 
+  override def toString = raw
 }
 
 object Line {

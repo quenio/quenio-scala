@@ -2,14 +2,16 @@
 !#
 
 import quenio.locale.repository._
-import quenio.locale.roles._
+import quenio.locale.role._
 
 try {
 	new CommandApp(".") {
 		appName = "lc"
 		appArgs = args
 		commands = Map(
-			"level" -> level _
+			"level" -> level _,
+			"find" -> find _,
+			"replace" -> replace _
 		)
 	} start
 } catch {
@@ -19,9 +21,27 @@ try {
 
 def level(args: Array[String], dirPath: String) {
   if (args.length == 2) {
-    val leveler = new LocaleRepository(dirPath) with Leveler
+    val leveler = new LocaleDirectory(dirPath) with Leveler
     leveler.level(args(1))
   } else {
     println("Please specify the base locale used for leveling and no more.")
+  }
+}
+
+def find(args: Array[String], dirPath: String) {
+  if (args.length == 3) {
+    val finder = new LocaleDirectory(dirPath) with Finder
+    finder.find(args(1), args(2)).foreach(println)
+  } else {
+    println("Please specify the locale and string to find. Ex.: lc find <locale> <str>")
+  }
+}
+
+def replace(args: Array[String], dirPath: String) {
+  if (args.length == 3) {
+    val replacer = new LocaleDirectory(dirPath) with Replacer
+    replacer.replace(args(1), args(2))
+  } else {
+    println("Please specify the original str and the replacement str. Ex.: lc replace <orig> <new>")
   }
 }

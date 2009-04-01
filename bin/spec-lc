@@ -3,16 +3,18 @@
 
 import quenio.locale.model._
 
-SpecLine.execute()
-SpecBreak.execute()
-SpecComment.execute()
-SpecProperty.execute()
-SpecLocale.execute()
+SpecLine.execute
+SpecBreak.execute
+SpecComment.execute
+SpecProperty.execute
+SpecLocale.execute
 
 import quenio.locale.repository._
 
-SpecLocaleDirectory.execute()
+SpecLocaleDirectory.execute
 
 import quenio.locale.role._
 
-SpecLeveler.execute()
+SpecLeveler.execute
+SpecFinder.execute
+SpecReplacer.execute

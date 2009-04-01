@@ -6,7 +6,7 @@ import quenio.locale.model._
 
 object SpecLeveler extends Spec with ShouldMatchers {
   
-  val commentLine = "# My comment..."
+  val commentLine = "# My comment...=More comments" // Simulating especial case where Property could parse a comment.
   val propertyLine = "myprop=myval"
   val extraProperty = "exprop="
 

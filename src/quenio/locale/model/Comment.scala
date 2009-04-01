@@ -21,6 +21,9 @@ object Comment {
       None
   }
 
-  def unapply(line: Line): Option[String] = unapply(line.raw)
-  
+  def unapply(line: Line): Option[String] = 
+    if (line.isInstanceOf[Comment])
+      unapply(line.raw)
+    else
+      None
 }

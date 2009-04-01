@@ -39,6 +39,9 @@ object Property {
       None 
   }
   
-  def unapply(line: Line): Option[(String, String)] = unapply(line.raw)
-  
+  def unapply(line: Line): Option[(String, String)] = 
+    if (line.isInstanceOf[Property])
+      unapply(line.raw)
+    else
+      None
 }

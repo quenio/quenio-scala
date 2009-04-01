@@ -5,14 +5,10 @@ import quenio.locale.repository._
 
 trait Leveler extends LocaleRepository {
   
-  override abstract def apply(code: String): Locale
-	override abstract def locales: List[Locale]
-	override abstract def replaceWith(locales: List[Locale])
-  
   def level(baseLocaleCode: String) {
-    val base = super.apply(baseLocaleCode)
-    val leveled = Leveler.level(base, super.locales - base)
-    super.replaceWith(leveled)
+    val base = apply(baseLocaleCode)
+    val leveled = Leveler.level(base, locales - base)
+    replaceWith(leveled)
   }
 
 }

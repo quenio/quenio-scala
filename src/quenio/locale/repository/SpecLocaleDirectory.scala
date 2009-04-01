@@ -34,12 +34,14 @@ object SpecLocaleDirectory extends Spec with ShouldMatchers {
     it("contains French locale's contents") {
       val french = directory("fr_CA")
       french.code should equal ("fr_CA")
-      french.lines should have length (5)
-      val List(Comment(c1), Break, Property(name, value), Break, Comment(c2)) = french.lines
+      french.lines should have length (6)
+      val List(Comment(c1), Break, Property(name, value), Break, Comment(c2), Comment(c3)) = 
+        french.lines
       c1 should be ("Simple French comment...")
       name should be ("depropname")
       value should be ("")
       c2 should be ("---")
+      c3 should be ("................... =Some text...")
     }
     
     it("can replace an existing set of locales with a new one.") {
@@ -59,6 +61,7 @@ object SpecLocaleDirectory extends Spec with ShouldMatchers {
       val newDirectory = new LocaleDirectory(tmpDir)
       newDirectory("en").lines(0).raw should be (originalEnglish.lines(0).raw)
       newDirectory("fr_CA").lines(0).raw should be (newFrench.lines(0).raw)
+
     }
 
   }
