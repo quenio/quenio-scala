@@ -4,7 +4,12 @@ class Line(rawText: String) {
   
   require(rawText != null, "The 'rawText' parameter is required.")
   
-  val raw = rawText
+  def raw = rawText
   
 }
 
+object Line {
+  
+  def unapply(line: Line): Option[String] = Some(line.raw)
+  
+}

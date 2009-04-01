@@ -2,9 +2,10 @@
 !#
 
 import quenio.locale.repository._
+import quenio.locale.roles._
 
 try {
-	new CommandApp(new LocaleRepository(".")) {
+	new CommandApp(".") {
 		appName = "lc"
 		appArgs = args
 		commands = Map(
@@ -16,9 +17,11 @@ try {
 	case e: Exception => println(e.getMessage)
 }
 
-def level(args: Array[String], repository: LocaleRepository) {
+def level(args: Array[String], dirPath: String) {
   if (args.length == 2) {
+    val leveler = new LocaleRepository(dirPath) with Leveler
+    leveler.level(args(1))
   } else {
-    println("Please specify the base language for leveling and no more.")
+    println("Please specify the base locale used for leveling and no more.")
   }
 }

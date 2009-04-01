@@ -1,9 +1,8 @@
-package quenio.locale.repository
+package quenio.locale.role
 
 import org.scalatest._
 import org.scalatest.matchers._
 import quenio.locale.model._
-import quenio.locale.roles._
 
 object SpecLeveler extends Spec with ShouldMatchers {
   
@@ -37,9 +36,9 @@ object SpecLeveler extends Spec with ShouldMatchers {
     )
   )
 
-  describe("Lever") {
+  describe("Leveler") {
     
-    it("can level one set of locales based on a specified locale") {
+    it("can level a set of locales based on a specified locale.") {
       val leveled = Leveler.level(en, List(de, fr))
       leveled should have length(2)
       leveled(0) should not equal (de)
