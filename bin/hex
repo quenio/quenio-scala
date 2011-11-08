@@ -1,0 +1,4 @@
+#!/usr/bin/env sc -deprecation
+!#
+
+println(Integer.toHexString(Integer.parseInt(args(0))).toUpperCase())

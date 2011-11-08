@@ -18,3 +18,4 @@ import quenio.locale.role._
 SpecLeveler.execute
 SpecFinder.execute
 SpecReplacer.execute
+SpecPrepender.execute

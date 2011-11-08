@@ -11,7 +11,8 @@ try {
 		commands = Map(
 			"level" -> level _,
 			"find" -> find _,
-			"replace" -> replace _
+			"replace" -> replace _,
+			"prepend" -> prepend _
 		)
 	} start
 } catch {
@@ -43,5 +44,15 @@ def replace(args: Array[String], dirPath: String) {
     replacer.replace(args(1), args(2))
   } else {
     println("Please specify the original str and the replacement str. Ex.: lc replace <orig> <new>")
+  }
+}
+
+def prepend(args: Array[String], dirPath: String) {
+  if (args.length == 2) {
+    val prepender = new LocaleDirectory(dirPath) with Prepender
+    prepender.prepend(args(1))
+  } else {
+    println("Please specify the comment to prepend in the locale files.")
+    println("Ex.: lc prepend \"line text\"")
   }
 }

@@ -20,6 +20,7 @@ class CommandApp[ParamType](commandParam: ParamType) {
 		  }
 		} else {
 			println("Please specify a command. Ex.: " + appName + " <command>")
+			println("Available commands: " + commands.keys.mkString(", "))
 		}
 	}
 	
